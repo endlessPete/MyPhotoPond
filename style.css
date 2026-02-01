@@ -1,0 +1,201 @@
+/* MyPhotoPond v1.0
+   - Responsive 6-button layout (auto adapts iOS/iPadOS/Android/Desktop)
+   - Automatic dark mode (prefers-color-scheme)
+   - Easy to add new buttons: duplicate an <a> and assign a color class
+*/
+
+:root{
+  --bg: #f6f8ff;
+  --card: rgba(255,255,255,0.72);
+  --text: #0b1220;
+  --muted: rgba(11,18,32,0.65);
+
+  --pond-blue: #1e73ff;
+
+  --radius: 18px;
+  --shadow: 0 12px 36px rgba(11,18,32,0.12);
+
+  --btn-text: #ffffff;
+  --btn-radius: 16px;
+
+  /* Button colors (light mode) */
+  --red:    #ff3b30;
+  --blue:   #0a84ff;
+  --pink:   #ff2d55;
+  --yellow: #ffcc00;
+  --purple: #af52de;
+  --orange: #ff9500;
+
+  /* Button colors (dark mode) */
+  --red-d:    #b3261e;
+  --blue-d:   #0b57d0;
+  --pink-d:   #b61b43;
+  --yellow-d: #b08800;
+  --purple-d: #6d28a6;
+  --orange-d: #b35a00;
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #070b14;
+    --card: rgba(255,255,255,0.06);
+    --text: #eaf0ff;
+    --muted: rgba(234,240,255,0.66);
+    --shadow: 0 18px 50px rgba(0,0,0,0.45);
+  }
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  height: 100%;
+}
+
+body{
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: radial-gradient(1100px 700px at 20% 10%, rgba(30,115,255,0.18), transparent 55%),
+              radial-gradient(900px 600px at 80% 30%, rgba(255,45,85,0.10), transparent 60%),
+              radial-gradient(900px 650px at 50% 90%, rgba(175,82,222,0.12), transparent 60%),
+              var(--bg);
+  color: var(--text);
+}
+
+.wrap{
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 28px 16px 18px;
+}
+
+.header{
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.title{
+  margin: 0;
+  font-size: clamp(34px, 5.5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: 0.2px;
+  color: var(--pond-blue);
+  text-shadow: 0 10px 30px rgba(30,115,255,0.22);
+}
+
+.subtitle{
+  margin: 10px 0 0;
+  font-size: clamp(14px, 2.2vw, 18px);
+  color: var(--pond-blue);
+  opacity: 0.82;
+}
+
+.buttons{
+  width: min(860px, 100%);
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  padding: 18px;
+
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.pond-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px 14px;
+  border-radius: var(--btn-radius);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--btn-text);
+
+  transform: translateZ(0);
+  transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.16);
+  outline: none;
+}
+
+.pond-btn:active{
+  transform: translateY(1px) scale(0.995);
+}
+
+.pond-btn:focus-visible{
+  box-shadow: 0 0 0 4px rgba(30,115,255,0.35), 0 10px 24px rgba(0,0,0,0.20);
+}
+
+@media (hover:hover){
+  .pond-btn:hover{
+    transform: translateY(-1px);
+    filter: brightness(1.03);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.20);
+  }
+}
+
+/* Color mapping: light mode uses --color; dark mode swaps to --color-d */
+.red{    background: var(--red); }
+.blue{   background: var(--blue); }
+.pink{   background: var(--pink); }
+.yellow{ background: var(--yellow); color: rgba(11,18,32,0.92); }
+.purple{ background: var(--purple); }
+.orange{ background: var(--orange); }
+
+@media (prefers-color-scheme: dark){
+  .red{    background: var(--red-d); }
+  .blue{   background: var(--blue-d); }
+  .pink{   background: var(--pink-d); }
+  .yellow{ background: var(--yellow-d); color: rgba(234,240,255,0.92); }
+  .purple{ background: var(--purple-d); }
+  .orange{ background: var(--orange-d); }
+}
+
+.footer{
+  width: min(860px, 100%);
+  margin-top: 14px;
+  padding: 10px 6px 0;
+}
+
+.footer-row{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.version{
+  font-size: 12px;
+  color: var(--muted);
+  padding-left: 2px;
+  white-space: nowrap;
+}
+
+.disclaimer{
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.footer-link{
+  color: var(--pond-blue);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.footer-link:focus-visible{
+  outline: 2px solid rgba(30,115,255,0.45);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (max-width: 420px){
+  .buttons{ padding: 14px; }
+  .pond-btn{ padding: 15px 12px; }
+  .footer-row{
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
